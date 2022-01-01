@@ -24,6 +24,16 @@ module.exports.handler = async (event) => {
 
   try {
     const parsedBody = JSON.parse(event.body);
+    if (!parsedBody) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: "No media found",
+          uploadResult: "",
+          uploadResult_small: "",
+        }),
+      };
+    }
     const base64File = parsedBody.file;
     const decodedFile = Buffer.from(
       base64File.replace(/^data:image\/\w+;base64,/, ""),
@@ -48,8 +58,6 @@ module.exports.handler = async (event) => {
       Body: decodedFile_small,
       ContentType: "image/jpeg",
     };
-    console.log(decodedFile, "111111111111111111");
-    console.log(decodedFile_small, "2222222222222222");
 
     const uploadResult_small = await s3.upload(params_small).promise();
 
