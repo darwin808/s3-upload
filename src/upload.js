@@ -8,9 +8,11 @@ const downsizeProfileImgForTweet = (img) => {
   let imgBuffer = Buffer.from(img, "base64");
   return sharp(imgBuffer)
     .resize(52, 52)
+    .toBuffer()
     .then((data) => {
       console.log(data, "99999999999999999999999");
       console.log("success");
+      return data;
     })
     .catch((err) => console.log(`downisze issue ${err}`));
 };
@@ -29,6 +31,7 @@ module.exports.handler = async (event) => {
       base64File.replace(/^data:image\/\w+;base64,/, ""),
       "base64"
     );
+
     const decodedFile2 = downsizeProfileImgForTweet(decodedFile);
 
     const params = {
