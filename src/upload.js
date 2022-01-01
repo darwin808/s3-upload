@@ -24,7 +24,7 @@ module.exports.handler = async (event) => {
 
   try {
     const parsedBody = JSON.parse(event.body);
-    if (!parsedBody) {
+    if (!parsedBody.file) {
       return {
         statusCode: 200,
         body: JSON.stringify({
