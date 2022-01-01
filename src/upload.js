@@ -30,9 +30,9 @@ module.exports.handler = async (event) => {
       "base64"
     );
 
-    const decodedFile2 = await downsizeProfileImgForTweet(decodedFile).then(
-      (e) => e
-    );
+    const decodedFile_small = await downsizeProfileImgForTweet(
+      decodedFile
+    ).then((e) => e);
 
     const params = {
       Bucket: BUCKET_NAME,
@@ -41,19 +41,19 @@ module.exports.handler = async (event) => {
       ContentType: "image/jpeg",
     };
 
-    const params2 = {
+    const params_small = {
       Bucket: BUCKET_NAME,
       Key: `images/${new Date().toISOString()}.jpeg`,
-      Body: decodedFile2,
+      Body: decodedFile_small,
       ContentType: "image/jpeg",
     };
     const uploadResult = await s3.upload(params).promise();
-    const uploadResult2 = await s3.upload(params2).promise();
+    const uploadResult_small = await s3.upload(params_small).promise();
 
     response.body = JSON.stringify({
       message: "Successfully uploaded file to S3",
       uploadResult,
-      uploadResult2,
+      uploadResult_small,
     });
   } catch (e) {
     console.error(e);
