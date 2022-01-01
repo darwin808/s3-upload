@@ -4,9 +4,9 @@ const s3 = new AWS.S3();
 
 const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 
-const downsizeProfileImgForTweet = (img) => {
+const downsizeProfileImgForTweet = async (img) => {
   let imgBuffer = Buffer.from(img, "base64");
-  return sharp(imgBuffer)
+  return await sharp(imgBuffer)
     .resize(52, 52)
     .toBuffer()
     .then((data) => {
@@ -31,7 +31,9 @@ module.exports.handler = async (event) => {
       "base64"
     );
 
-    const decodedFile2 = downsizeProfileImgForTweet(decodedFile).then((e) => e);
+    const decodedFile2 = await downsizeProfileImgForTweet(decodedFile).then(
+      (e) => e
+    );
 
     const params = {
       Bucket: BUCKET_NAME,
