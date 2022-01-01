@@ -12,6 +12,7 @@ module.exports.handler = async (event) => {
     body: JSON.stringify({ message: "Successfully uploaded file to S3" }),
   };
 
+  console.log("123");
   try {
     const parsedBody = JSON.parse(event.body);
     const base64File = parsedBody.file;
