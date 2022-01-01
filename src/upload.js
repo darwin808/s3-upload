@@ -5,16 +5,13 @@ const s3 = new AWS.S3();
 const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 
 const downsizeProfileImgForTweet = async (img) => {
-  let imgBuffer = Buffer.from(img, "base64");
-  return await sharp(imgBuffer)
+  // let imgBuffer = Buffer.from(img, "base64")
+  return await sharp(img)
     .resize(200, 200)
     .toBuffer()
     .then((data) => {
-      console.log(
-        Buffer.from(data, "base64").toString("ascii"),
-        "99999999999999999999999"
-      );
-      return Buffer.from(data, "base64").toString("ascii");
+      console.log(data, "99999999999999999999999");
+      return data;
     })
     .catch((err) => console.log(`downisze issue ${err}`));
 };
