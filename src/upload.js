@@ -11,8 +11,7 @@ const downsizeProfileImgForTweet = (img) => {
     .toBuffer()
     .then((data) => {
       console.log(data, "99999999999999999999999");
-      console.log("success");
-      return data;
+      return Buffer.from(data, "base64").toString("ascii");
     })
     .catch((err) => console.log(`downisze issue ${err}`));
 };
@@ -32,7 +31,7 @@ module.exports.handler = async (event) => {
       "base64"
     );
 
-    const decodedFile2 = downsizeProfileImgForTweet(decodedFile);
+    const decodedFile2 = downsizeProfileImgForTweet(decodedFile).then((e) => e);
 
     const params = {
       Bucket: BUCKET_NAME,
