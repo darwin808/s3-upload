@@ -7,10 +7,13 @@ const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 const downsizeProfileImgForTweet = async (img) => {
   let imgBuffer = Buffer.from(img, "base64");
   return await sharp(imgBuffer)
-    .resize(52, 52)
+    .resize(200, 200)
     .toBuffer()
     .then((data) => {
-      console.log(data, "99999999999999999999999");
+      console.log(
+        Buffer.from(data, "base64").toString("ascii"),
+        "99999999999999999999999"
+      );
       return Buffer.from(data, "base64").toString("ascii");
     })
     .catch((err) => console.log(`downisze issue ${err}`));
@@ -43,6 +46,7 @@ module.exports.handler = async (event) => {
     };
 
     console.log(decodedFile2, "2222222222222222222222222222222222222222");
+    console.log(decodedFile, "1111111111111111111111111111111111111111111111");
     const params2 = {
       Bucket: BUCKET_NAME,
       Key: `images/${new Date().toISOString()}.jpeg`,
