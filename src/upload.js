@@ -29,11 +29,6 @@ module.exports.handler = async (event) => {
       base64File.replace(/^data:image\/\w+;base64,/, ""),
       "base64"
     );
-
-    const decodedFile_small = await downsizeProfileImgForTweet(
-      decodedFile
-    ).then((e) => e);
-
     const params = {
       Bucket: BUCKET_NAME,
       Key: `images/${new Date().toISOString()}.jpeg`,
@@ -41,13 +36,21 @@ module.exports.handler = async (event) => {
       ContentType: "image/jpeg",
     };
 
+    const uploadResult = await s3.upload(params).promise();
+
+    const decodedFile_small = await downsizeProfileImgForTweet(
+      decodedFile
+    ).then((e) => e);
+
     const params_small = {
       Bucket: BUCKET_NAME,
       Key: `images/${new Date().toISOString()}_small.jpeg`,
       Body: decodedFile_small,
       ContentType: "image/jpeg",
     };
-    const uploadResult = await s3.upload(params).promise();
+    console.log(decodedFile, "111111111111111111");
+    console.log(decodedFile_small, "2222222222222222");
+
     const uploadResult_small = await s3.upload(params_small).promise();
 
     response.body = JSON.stringify({
