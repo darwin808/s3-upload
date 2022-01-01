@@ -43,7 +43,7 @@ module.exports.handler = async (event) => {
 
     const params_small = {
       Bucket: BUCKET_NAME,
-      Key: `images/${new Date().toISOString()}.jpeg`,
+      Key: `images/${new Date().toISOString()}_small.jpeg`,
       Body: decodedFile_small,
       ContentType: "image/jpeg",
     };
