@@ -23,6 +23,7 @@ functions:
       - Effect: Allow
         Action:
           - "*"
+          - "s3:GetObject"
         Resource: arn:aws:s3:::${self:custom.fileUploadBucketName}/*
     environment:
       FILE_UPLOAD_BUCKETNAME: ${self:custom.fileUploadBucketName}
