@@ -8,7 +8,6 @@ const downsizeProfileImgForTweet = (img) => {
   let imgBuffer = Buffer.from(img, "base64");
   sharp(imgBuffer)
     .resize(52, 52)
-    .toBuffer()
     .then((data) => {
       console.log(data, "99999999999999999999999");
       console.log("success");
