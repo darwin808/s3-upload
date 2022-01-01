@@ -6,12 +6,11 @@ const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 
 const downsizeProfileImgForTweet = (img) => {
   let imgBuffer = Buffer.from(img, "base64");
-  sharp(imgBuffer)
+  return sharp(imgBuffer)
     .resize(52, 52)
     .then((data) => {
       console.log(data, "99999999999999999999999");
       console.log("success");
-      return data;
     })
     .catch((err) => console.log(`downisze issue ${err}`));
 };
