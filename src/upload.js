@@ -43,18 +43,19 @@ module.exports.handler = async (event) => {
     };
 
     console.log(decodedFile2, "2222222222222222222222222222222222222222");
-    // const params2 = {
-    //   Bucket: BUCKET_NAME,
-    //   Key: `images/${new Date().toISOString()}.jpeg`,
-    //   Body: decodedFile2,
-    //   ContentType: "image/jpeg",
-    // };
+    const params2 = {
+      Bucket: BUCKET_NAME,
+      Key: `images/${new Date().toISOString()}.jpeg`,
+      Body: decodedFile2,
+      ContentType: "image/jpeg",
+    };
     const uploadResult = await s3.upload(params).promise();
-    // const uploadResult2 = await s3.upload(params2).promise();
+    const uploadResult2 = await s3.upload(params2).promise();
 
     response.body = JSON.stringify({
       message: "Successfully uploaded file to S3",
       uploadResult,
+      uploadResult2,
     });
   } catch (e) {
     console.error(e);
