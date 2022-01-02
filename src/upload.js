@@ -7,7 +7,7 @@ const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 const downsizeProfileImgForTweet = async (img) => {
   // let imgBuffer = Buffer.from(img, "base64")
   return await sharp(img)
-    .resize(120, 120)
+    .resize(180, 180)
     .toBuffer()
     .then((data) => {
       return data;
