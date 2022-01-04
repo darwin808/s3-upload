@@ -12,7 +12,7 @@ const headers = {
 const downsizeProfileImgForTweet = async (img) => {
   // let imgBuffer = Buffer.from(img, "base64")
   return await sharp(img)
-    .resize(180, 180)
+    .resize({ height: 150 })
     .toBuffer()
     .then((data) => {
       return data;
