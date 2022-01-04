@@ -14,9 +14,7 @@ const downsizeProfileImgForTweet = async (img) => {
   return await sharp(img)
     .resize({ height: 150 })
     .toBuffer()
-    .then((data) => {
-      return data;
-    })
+    .then((data) => data)
     .catch((err) => console.log(`downisze issue ${err}`));
 };
 
