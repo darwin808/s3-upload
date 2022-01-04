@@ -4,6 +4,11 @@ const s3 = new AWS.S3();
 
 const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKETNAME;
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Methods": "POST",
+};
 const downsizeProfileImgForTweet = async (img) => {
   // let imgBuffer = Buffer.from(img, "base64")
   return await sharp(img)
@@ -19,6 +24,7 @@ module.exports.handler = async (event) => {
   const response = {
     isBase64Encoded: false,
     statusCode: 200,
+    headers,
     body: JSON.stringify({ message: "Successfully uploaded file to S3" }),
   };
 
@@ -27,6 +33,7 @@ module.exports.handler = async (event) => {
     if (!parsedBody.file) {
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify({
           message: "No media found",
           uploadResult: "",
