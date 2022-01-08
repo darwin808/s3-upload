@@ -32,6 +32,25 @@ functions:
           path: images
           method: POST
           cors: true
+  s3VideoUploader:
+    handler: src/videoUpload.handler
+    name: s3-video-uploader
+    description: darwinnnnn
+    timeout: 60
+    memorySize: 128
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "s3:*"
+        Resource: arn:aws:s3:::${self:custom.fileUploadBucketName}/*
+    environment:
+      FILE_UPLOAD_BUCKETNAME: ${self:custom.fileUploadBucketName}
+
+    events:
+      - http:
+          path: videos
+          method: POST
+          cors: true
 
 resources:
   Resources:
