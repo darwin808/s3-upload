@@ -28,7 +28,6 @@ module.exports.handler = async (event) => {
         body: JSON.stringify({
           message: "No media found",
           uploadResult: "",
-          uploadResult_small: "",
         }),
       };
     }
