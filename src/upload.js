@@ -18,6 +18,7 @@ const downsizeProfileImgForTweet = async (img) => {
     .catch((err) => console.log(`downisze issue ${err}`));
 };
 
+const imageRegex = /^data:image\/\w+;base64,/;
 module.exports.handler = async (event) => {
   const response = {
     isBase64Encoded: false,
@@ -41,7 +42,7 @@ module.exports.handler = async (event) => {
     }
     const base64File = parsedBody.file;
     const decodedFile = Buffer.from(
-      base64File.replace(/^data:image\/\w+;base64,/, ""),
+      base64File.replace(imageRegex, ""),
       "base64"
     );
     const params = {
